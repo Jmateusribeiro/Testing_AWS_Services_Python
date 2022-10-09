@@ -16,7 +16,7 @@ Goal: Show how one can test AWS services with Python
 
 ## Run Tests:
 
-All tests of this project can be runned by executing the bat file 'run_tests.bat'
+All tests of this project can be runned by executing the bat file 'run_tests.bat'.
 Each execution generates a html report inside 'reports' folder.
 
 Note: Don't forget to run the bat file inside an environment with all dependencies installed
