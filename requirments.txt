@@ -1,0 +1,7 @@
+pytest
+json
+pytest-bdd
+localstack
+boto3
+pytest-html
+pytest-xdist

@@ -1,0 +1,29 @@
+[
+  {
+    "car detail": {
+                    "brand": "BMW",
+                    "model": "350d",
+                    "nr_doors": 5,
+                    "sports_indicator": "N"
+                  },
+    "id": ""
+  },
+  {
+    "car detail": {
+                    "brand": "Fiat",
+                    "model": "Uno",
+                    "nr_doors": 2,
+                    "sports_indicator": "S"
+                  },
+    "id": ""
+  },
+  {
+    "car detail": {
+                    "brand": "Seat",
+                    "model": "FR",
+                    "nr_doors": 5,
+                    "sports_indicator": "S"
+                  },
+    "id": ""
+  }
+]
