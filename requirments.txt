@@ -1,5 +1,4 @@
 pytest
-json
 pytest-bdd
 localstack
 boto3
