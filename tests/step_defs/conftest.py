@@ -14,8 +14,9 @@ def pytest_addoption(parser: 'pytest.Parser') -> None:
     """
     parser.addoption("--mock-aws", 
                      action="store", 
-                     default=True, 
-                     type=bool,
+                     default="True",
+                     choices=["True", "False"],
+                     type=str,
                      help="Boolean to indicate if AWS should be mocked"
     )
 
@@ -30,7 +31,9 @@ def mock_aws_flag(request: 'pytest.FixtureRequest') -> bool:
     Returns:
         bool: Boolean indicating whether AWS should be mocked.
     """
-    mock_aws_flag = request.config.getoption("--mock-aws")
+    mock_aws_value = request.config.getoption("--mock-aws")
+    mock_aws_flag = mock_aws_value == "True"
+
     return mock_aws_flag
 
 @pytest.fixture(scope='module')
@@ -64,6 +67,8 @@ def setup(request: 'pytest.FixtureRequest', mock_aws_flag: bool, log: CustomLogg
         def teardown():
             # Teardown mocked AWS environment
             mock.stop()
+
+        request.addfinalizer(teardown)
     else:
         # Setup LocalStack environment
         log.info("Creating real SQS client")
