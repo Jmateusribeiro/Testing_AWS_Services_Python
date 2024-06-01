@@ -4,3 +4,4 @@ localstack
 boto3
 pytest-html
 pytest-xdist
+moto

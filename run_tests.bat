@@ -4,6 +4,6 @@ set test_dir=%CD%\tests
 
 echo The test directory is %test_dir%
 
-python -m pytest -s -vv --gherkin-terminal-reporter %test_dir%\step_defs --html=%report_dir%\report.html -n 4 --capture sys
+python -m pytest --gherkin-terminal-reporter -s -vv --html=%report_dir%\report.html --capture=tee-sys %test_dir%\step_defs
 
 pause
