@@ -1,5 +1,7 @@
 # Testing AWS Services With Python
 
+[![Pylint](https://github.com/Jmateusribeiro/Testing_AWS_Services_Python/actions/workflows/pylint.yml/badge.svg)](https://github.com/Jmateusribeiro/Testing_AWS_Services_Python/actions/workflows/pylint.yml)
+
 ## Overview
 This project serves as a starter guide to testing AWS services with Python. It presents a methodology for testing AWS infrastructure and explores two approaches: leveraging LocalStack and utilizing Moto for mocking.
 
