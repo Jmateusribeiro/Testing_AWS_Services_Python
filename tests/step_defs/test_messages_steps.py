@@ -1,6 +1,6 @@
 from pytest_bdd import scenarios, given, when, then
 import json
-from utilities.settings import project_dir
+from utilities.settings import PROJECT_DIR
 
 # Load feature files for pytest-bdd
 scenarios('../features/cars_stream_processing.feature')
@@ -19,7 +19,7 @@ def added_cars(sqs_cli: 'SQSClient', log: 'CustomLogger') -> list:
         list: List of cars added to the queue.
     """
     log.info("########   Start Step: 'Given a list of cars are added to car queue'   ########")
-    f = open(project_dir + "\\test-data\\cars.json", "r")
+    f = open(PROJECT_DIR + "\\test-data\\cars.json", "r")
     cars = json.loads(f.read())
 
     for car in cars:

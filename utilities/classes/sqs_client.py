@@ -1,10 +1,10 @@
 import boto3
 from botocore.exceptions import ClientError
 import json
-from utilities.settings import localhost, region_name
+from utilities.settings import LOCALHOST, REGION_NAME
 
 class SQSClient:
-    def __init__(self, log: 'CustomLogger', bucket: str, mock_aws_flag: bool, host: str = localhost, region_name: str = region_name):
+    def __init__(self, log: 'CustomLogger', bucket: str, mock_aws_flag: bool, host: str = LOCALHOST, region_name: str = REGION_NAME):
         """
         Initialize SQSClient.
 
@@ -12,8 +12,8 @@ class SQSClient:
             log (CustomLogger): Logger object.
             bucket (str): Name of the AWS bucket.
             mock_aws_flag (bool): Flag indicating whether to mock AWS or not.
-            host (str, optional): Host URL. Defaults to localhost.
-            region_name (str, optional): AWS region name. Defaults to region_name.
+            host (str, optional): Host URL. Defaults to LOCALHOST.
+            region_name (str, optional): AWS region name. Defaults to REGION_NAME.
         """
         self.log = log
         self.bucket_name = bucket

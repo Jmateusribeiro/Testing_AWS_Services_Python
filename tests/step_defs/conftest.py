@@ -1,7 +1,7 @@
 import pytest
 from utilities.classes.sqs_client import SQSClient
 from utilities.classes.log import CustomLogger
-from utilities.settings import queue_name, sqs_bucket, report_dir
+from utilities.settings import QUEUE_NAME, SQS_BUCKET, REPORT_DIR
 from utilities import os_funcs as cmd
 from moto import mock_aws
 
@@ -41,7 +41,7 @@ def log() -> CustomLogger:
     Returns:
         CustomLogger: A CustomLogger instance.
     """
-    return CustomLogger(report_dir)
+    return CustomLogger(REPORT_DIR)
 
 @pytest.fixture(autouse=True, scope='module')
 def setup(request: 'pytest.FixtureRequest', mock_aws_flag: bool, log: CustomLogger) -> None:
@@ -89,8 +89,8 @@ def sqs_cli(mock_aws_flag: bool, log: CustomLogger) -> SQSClient:
     Returns:
         SQSClient: An SQSClient instance.
     """
-    sqs_cli = SQSClient(log=log, bucket=sqs_bucket, mock_aws_flag=mock_aws_flag)
-    sqs_cli.create_queue(queue_name)
-    sqs_cli.get_queue_url(queue_name)
+    sqs_cli = SQSClient(log=log, bucket=SQS_BUCKET, mock_aws_flag=mock_aws_flag)
+    sqs_cli.create_queue(QUEUE_NAME)
+    sqs_cli.get_queue_url(QUEUE_NAME)
 
     return sqs_cli
