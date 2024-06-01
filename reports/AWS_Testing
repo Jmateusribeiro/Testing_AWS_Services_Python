@@ -1,0 +1,26 @@
+2024-06-01 15:33:22,101 - INFO: AWS Mock Flag: True
+2024-06-01 15:33:22,102 - INFO: Creating mocked SQS client
+2024-06-01 15:33:22,770 - INFO: Queue 'cars' created
+2024-06-01 15:33:22,778 - INFO: URL of queue cars: https://sqs.eu-west-2.amazonaws.com/123456789012/cars
+2024-06-01 15:33:22,779 - INFO: ########   Start Step: 'Given a list of cars are added to car queue'   ########
+2024-06-01 15:33:22,798 - INFO: Message sent
+2024-06-01 15:33:22,798 - INFO: car details: {'car detail': {'brand': 'BMW', 'model': '350d', 'nr_doors': 5, 'sports_indicator': 'N'}, 'id': 'c0aa0a35-76ad-4f08-bb85-76354101b281'}
+2024-06-01 15:33:22,802 - INFO: Message sent
+2024-06-01 15:33:22,805 - INFO: car details: {'car detail': {'brand': 'Fiat', 'model': 'Uno', 'nr_doors': 2, 'sports_indicator': 'S'}, 'id': '5ef85b23-386c-47fb-95d3-a9341b1d30b5'}
+2024-06-01 15:33:22,812 - INFO: Message sent
+2024-06-01 15:33:22,812 - INFO: car details: {'car detail': {'brand': 'Seat', 'model': 'FR', 'nr_doors': 5, 'sports_indicator': 'S'}, 'id': '89a3c65a-ef99-4518-a174-d9e28e883d3b'}
+2024-06-01 15:33:22,813 - INFO: ########   End Step: 'Given a list of cars are added to car queue'   ########
+2024-06-01 15:33:22,815 - INFO: ########   Start Step: 'When the queue list is returned'   ########
+2024-06-01 15:33:22,850 - INFO: Messages received
+2024-06-01 15:33:22,851 - INFO: ########   End Step: 'When the queue list is returned'   ########
+2024-06-01 15:33:22,851 - INFO: ########   Start Step: 'Then the list contains the cars added'   ########
+2024-06-01 15:33:22,852 - INFO: message body: {'MessageId': 'c0aa0a35-76ad-4f08-bb85-76354101b281', 'ReceiptHandle': 'vecafqababdwehumutvtoecgccmdpezmdbsmaiupxdkkyugmxjdqkrjvbqdtgkmyrdlxciotsictnpvyqiidtntcecuvveabnrfkcwtipmkeegnfhiaerhisewylsnizzkrutrzuwgraqabowyrzrhckicttzztzgiuoasyssahbrbcnyeuygtkqo', 'MD5OfBody': '43324af2b5892a7197b733dbe657b4c4', 'Body': '{"brand": "BMW", "model": "350d", "nr_doors": 5, "sports_indicator": "N"}'}
+2024-06-01 15:33:22,852 - INFO: delete message with id c0aa0a35-76ad-4f08-bb85-76354101b281
+2024-06-01 15:33:22,857 - INFO: Message deleted
+2024-06-01 15:33:22,857 - INFO: message body: {'MessageId': '5ef85b23-386c-47fb-95d3-a9341b1d30b5', 'ReceiptHandle': 'zycdapwklevvnectyjkbbogxmyerjwxwddggwbuizmglrgvambpqcdzhqtsxvambeomiyzinxcueghvugshtkdgbhxbccqdrrqubvzjavssdudczopfwepsylxmjabytyaffcebfpnptchryxcjtcpxxlzbplnwrpvvbtrjfwcrhobphsfdqowbtn', 'MD5OfBody': 'd1f42ad94a239643b7e47d8470c014a5', 'Body': '{"brand": "Fiat", "model": "Uno", "nr_doors": 2, "sports_indicator": "S"}'}
+2024-06-01 15:33:22,858 - INFO: delete message with id 5ef85b23-386c-47fb-95d3-a9341b1d30b5
+2024-06-01 15:33:22,861 - INFO: Message deleted
+2024-06-01 15:33:22,861 - INFO: message body: {'MessageId': '89a3c65a-ef99-4518-a174-d9e28e883d3b', 'ReceiptHandle': 'uncbwoosterrtblikcqnacywtdhpymfvmkeuxaxwbwrzpvgfiwkqfnzspgjydekyvksetbrvcsekwxtqxycelineucttmvizhxefguyqfnkqayqlyxzzzewgzlpjjpkmklcmlkpffntaqbhxqltaasfzrgmlmxfhhmnslykatsfyrgyoiedtuzabn', 'MD5OfBody': '42015e13f1c056f9cc0fb47d8153dcac', 'Body': '{"brand": "Seat", "model": "FR", "nr_doors": 5, "sports_indicator": "S"}'}
+2024-06-01 15:33:22,862 - INFO: delete message with id 89a3c65a-ef99-4518-a174-d9e28e883d3b
+2024-06-01 15:33:22,864 - INFO: Message deleted
+2024-06-01 15:33:22,865 - INFO: ########   End Step: 'Then the list contains the cars added'   ########
