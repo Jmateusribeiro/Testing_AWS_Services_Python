@@ -1,8 +1,8 @@
 import os
 
-project_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-report_dir  = project_dir + "//reports"
-queue_name  = "cars"
-localhost   = "http://localhost:4566"
-sqs_bucket  = "sqs"
-region_name = "eu-west-2"
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+REPORT_DIR  = PROJECT_DIR + "//reports"
+QUEUE_NAME  = "cars"
+LOCALHOST   = "http://localhost:4566"
+SQS_BUCKET  = "sqs"
+REGION_NAME = "eu-west-2"
