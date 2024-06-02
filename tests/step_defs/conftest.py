@@ -23,8 +23,8 @@ def pytest_addoption(parser: 'pytest.Parser') -> None:
                      help="Boolean to indicate if AWS should be mocked"
     )
 
-@pytest.fixture(scope='module')
-def mock_aws_flag(request: 'pytest.FixtureRequest') -> bool:
+@pytest.fixture(scope='module', name='mock_aws_flag')
+def get_mock_aws_flag(request: 'pytest.FixtureRequest') -> bool:
     """
     Fixture to retrieve the value of the --mock-aws option.
 
@@ -39,8 +39,8 @@ def mock_aws_flag(request: 'pytest.FixtureRequest') -> bool:
 
     return mock_aws_flag_value
 
-@pytest.fixture(scope='module')
-def log() -> CustomLogger:
+@pytest.fixture(scope='module', name='log')
+def get_log() -> CustomLogger:
     """
     Fixture to create a CustomLogger instance.
 
