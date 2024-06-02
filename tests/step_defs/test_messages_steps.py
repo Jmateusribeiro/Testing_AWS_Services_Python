@@ -63,7 +63,7 @@ def queue_list(sqs_cli: 'SQSClient', log: 'CustomLogger') -> dict:
 
 # Then Step
 @then("the list contains the cars added")
-def assert_response_code(sqs_cli: 'SQSClient', 
+def assert_response_code(sqs_cli: 'SQSClient',
                          cars_list: list, messages: dict, log: 'CustomLogger') -> None:
     """
     Then step to assert that the list contains the cars added.
@@ -95,8 +95,8 @@ def assert_response_code(sqs_cli: 'SQSClient',
                 log.info(f"delete message with id {in_message_id}")
                 sqs_cli.delete_message(receipt_handle)
                 messages_count += 1
-    
-    error_messages = f"""Couldn't find all messages sent. 
+
+    error_messages = f"""Couldn't find all messages sent.
     Were sent {len(cars_list)} msgs, 
     but found only {messages_count} msgs"""
     assert len(cars_list) == messages_count, error_messages

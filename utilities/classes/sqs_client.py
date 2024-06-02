@@ -20,7 +20,6 @@ class SQSClient:
         log (CustomLogger): Logger object.
         bucket_name (str): Name of the AWS bucket.
         host (str): Host URL.
-        region_name (str): AWS region name.
         mock_aws_flag (bool): Flag indicating whether to mock AWS or not.
         client (boto3.client): SQS client object.
         queue_url (str): URL of the SQS queue.
@@ -35,8 +34,8 @@ class SQSClient:
         delete_message: Deletes a message from the SQS queue.
     """
 
-    def __init__(self, log: 'CustomLogger', bucket: str, 
-                 mock_aws_flag: bool, host: str = LOCALHOST, region_name: str = REGION_NAME):
+    def __init__(self, log: 'CustomLogger', bucket: str,
+                 mock_aws_flag: bool, host: str = LOCALHOST):
         """
         Initialize SQSClient.
 
@@ -45,12 +44,11 @@ class SQSClient:
             bucket (str): Name of the AWS bucket.
             mock_aws_flag (bool): Flag indicating whether to mock AWS or not.
             host (str, optional): Host URL. Defaults to LOCALHOST.
-            region_name (str, optional): AWS region name. Defaults to REGION_NAME.
         """
         self.log = log
         self.bucket_name = bucket
         self.host = host
-        self.region_name = region_name
+        self.region_name = REGION_NAME
         self.mock_aws_flag = mock_aws_flag
         self.client = self.create_client()
         self.queue_url = ''
@@ -63,12 +61,12 @@ class SQSClient:
             boto3.client: SQS client object.
         """
         if self.mock_aws_flag:
-            return boto3.client(self.bucket_name, 
+            return boto3.client(self.bucket_name,
                                 region_name=self.region_name
         )
-        
-        return boto3.client(self.bucket_name, 
-                            endpoint_url=self.host, 
+
+        return boto3.client(self.bucket_name,
+                            endpoint_url=self.host,
                             region_name=self.region_name
         )
 
@@ -119,7 +117,7 @@ class SQSClient:
         """
         try:
             message = car
-            response = self.client.send_message(QueueUrl=self.queue_url, 
+            response = self.client.send_message(QueueUrl=self.queue_url,
                                                 MessageBody=json.dumps(message))
             self.log.info("Message sent")
             return response
@@ -135,8 +133,8 @@ class SQSClient:
             dict: Messages received from the SQS service.
         """
         try:
-            messages = self.client.receive_message(QueueUrl=self.queue_url, 
-                                                   MaxNumberOfMessages=10, 
+            messages = self.client.receive_message(QueueUrl=self.queue_url,
+                                                   MaxNumberOfMessages=10,
                                                    WaitTimeSeconds=10)
             self.log.info("Messages received")
             return messages
