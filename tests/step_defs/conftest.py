@@ -1,9 +1,12 @@
+"""
+conftest module
+"""
+from moto import mock_aws
 import pytest
 from utilities.classes.sqs_client import SQSClient
 from utilities.classes.log import CustomLogger
 from utilities.settings import QUEUE_NAME, SQS_BUCKET, REPORT_DIR
 from utilities import os_funcs as cmd
-from moto import mock_aws
 
 def pytest_addoption(parser: 'pytest.Parser') -> None:
     """
@@ -12,8 +15,8 @@ def pytest_addoption(parser: 'pytest.Parser') -> None:
     Args:
         parser (pytest.Parser): The pytest parser object.
     """
-    parser.addoption("--mock-aws", 
-                     action="store", 
+    parser.addoption("--mock-aws",
+                     action="store",
                      default="True",
                      choices=["True", "False"],
                      type=str,
@@ -32,9 +35,9 @@ def mock_aws_flag(request: 'pytest.FixtureRequest') -> bool:
         bool: Boolean indicating whether AWS should be mocked.
     """
     mock_aws_value = request.config.getoption("--mock-aws")
-    mock_aws_flag = mock_aws_value == "True"
+    mock_aws_flag_value = mock_aws_value == "True"
 
-    return mock_aws_flag
+    return mock_aws_flag_value
 
 @pytest.fixture(scope='module')
 def log() -> CustomLogger:
@@ -57,7 +60,7 @@ def setup(request: 'pytest.FixtureRequest', mock_aws_flag: bool, log: CustomLogg
         log (CustomLogger): A CustomLogger instance.
     """
     log.info(f"AWS Mock Flag: {mock_aws_flag}")
-    
+
     if mock_aws_flag:
         # Setup mocked AWS environment
         log.info("Creating mocked SQS client")
@@ -94,8 +97,8 @@ def sqs_cli(mock_aws_flag: bool, log: CustomLogger) -> SQSClient:
     Returns:
         SQSClient: An SQSClient instance.
     """
-    sqs_cli = SQSClient(log=log, bucket=SQS_BUCKET, mock_aws_flag=mock_aws_flag)
-    sqs_cli.create_queue(QUEUE_NAME)
-    sqs_cli.get_queue_url(QUEUE_NAME)
+    sqs_client_instance = SQSClient(log=log, bucket=SQS_BUCKET, mock_aws_flag=mock_aws_flag)
+    sqs_client_instance.create_queue(QUEUE_NAME)
+    sqs_client_instance.get_queue_url(QUEUE_NAME)
 
-    return sqs_cli
+    return sqs_client_instance

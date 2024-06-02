@@ -1,12 +1,15 @@
-from pytest_bdd import scenarios, given, when, then
+"""
+steps to scenarios of cars_stream_processing feature
+"""
 import json
+from pytest_bdd import scenarios, given, when, then
 from utilities.settings import PROJECT_DIR
 
 # Load feature files for pytest-bdd
 scenarios('../features/cars_stream_processing.feature')
 
 # Given Step
-@given('a list of cars are added to car queue', target_fixture='added_cars')
+@given('a list of cars are added to car queue', target_fixture='cars_list')
 def added_cars(sqs_cli: 'SQSClient', log: 'CustomLogger') -> list:
     """
     Given step to add a list of cars to the car queue.
@@ -19,8 +22,10 @@ def added_cars(sqs_cli: 'SQSClient', log: 'CustomLogger') -> list:
         list: List of cars added to the queue.
     """
     log.info("########   Start Step: 'Given a list of cars are added to car queue'   ########")
-    f = open(PROJECT_DIR + "\\test-data\\cars.json", "r")
-    cars = json.loads(f.read())
+    #f = open(PROJECT_DIR + "\\test-data\\cars.json", "r")
+    #cars = json.loads(f.read())
+    with open(PROJECT_DIR + "\\test-data\\cars.json", "r", encoding='utf-8') as f:
+        cars = json.loads(f.read())
 
     for car in cars:
         car_details = car["car detail"]
@@ -36,7 +41,7 @@ def added_cars(sqs_cli: 'SQSClient', log: 'CustomLogger') -> list:
     return cars
 
 # When Step
-@when("the queue list is returned", target_fixture='queue_list')
+@when("the queue list is returned", target_fixture='messages')
 def queue_list(sqs_cli: 'SQSClient', log: 'CustomLogger') -> dict:
     """
     When step to return the queue list.
@@ -58,38 +63,42 @@ def queue_list(sqs_cli: 'SQSClient', log: 'CustomLogger') -> dict:
 
 # Then Step
 @then("the list contains the cars added")
-def assert_response_code(sqs_cli: 'SQSClient', added_cars: list, queue_list: dict, log: 'CustomLogger') -> None:
+def assert_response_code(sqs_cli: 'SQSClient', 
+                         cars_list: list, messages: dict, log: 'CustomLogger') -> None:
     """
     Then step to assert that the list contains the cars added.
 
     Args:
         sqs_cli (SQSClient): An instance of SQSClient.
-        added_cars (list): List of cars added to the queue.
-        queue_list (dict): Queue list.
+        cars_list (list): List of cars added to the queue.
+        messages (dict): Queue list.
         log (CustomLogger): A CustomLogger instance.
     """
     log.info("########   Start Step: 'Then the list contains the cars added'   ########")
     messages_count = 0
-    for message in queue_list["Messages"]:
+    for message in messages["Messages"]:
         in_message_id = message["MessageId"]
         body = message["Body"]
         receipt_handle = message["ReceiptHandle"]
 
         log.info(f"message body: {message}")
 
-        for car in added_cars:
+        for car in cars_list:
 
             car_details = car["car detail"]
             out_message_id = car["id"]
 
             if in_message_id == out_message_id:
-
-                assert car_details == json.loads(body), f"body of the message {in_message_id} doesn't match car detail"
+                error_msg = f"body of the message {in_message_id} doesn't match car detail"
+                assert car_details == json.loads(body), error_msg
 
                 log.info(f"delete message with id {in_message_id}")
                 sqs_cli.delete_message(receipt_handle)
                 messages_count += 1
-
-    assert len(added_cars) == messages_count, f"Couldn't find all messages sent. Were sent {len(added_cars)} msgs, but found only {messages_count} msgs"
+    
+    error_messages = f"""Couldn't find all messages sent. 
+    Were sent {len(cars_list)} msgs, 
+    but found only {messages_count} msgs"""
+    assert len(cars_list) == messages_count, error_messages
 
     log.info("########   End Step: 'Then the list contains the cars added'   ########")
