@@ -16,7 +16,7 @@ The choice between LocalStack and Moto depends on the specific testing requireme
 - **LocalStack** is ideal for integration testing, as it closely replicates the behavior of AWS services in a local environment. It is suitable for end-to-end testing scenarios where interactions between multiple AWS services are involved.
 - **Moto**, on the other hand, is more lightweight and is primarily used for unit testing. It is suitable for testing individual components or functionalities in isolation, without the need for a full integration environment.
 
-It is possible to select the desired testing approach using a command-line option (`--mock-aws`) when running the tests. By default, Moto is used for mocking AWS services. However, if developers prefer to use LocalStack for local testing, they can specify `--mock-aws=False`. 
+It is possible to select the desired testing approach using a command-line option (`--mock-aws`) when running the tests. By default, Moto is used for mocking AWS services. However, if one prefer to use LocalStack for local testing, use command line option `--mock-aws=False`. 
 
 ## Dependencies
 Before running the tests, ensure you have the following dependencies installed:
